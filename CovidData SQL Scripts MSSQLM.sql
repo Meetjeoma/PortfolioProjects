@@ -1,3 +1,4 @@
+  ----#DATA EXPLORATION WITH COVID DATA FROM OUR WORLD IN DATA
   --Select *
   --From PortfolioProject..CovidDeaths
   --order by 3,4
@@ -11,7 +12,8 @@ FROM PortfolioProject..CovidDeaths
 order by 1,2
 
 
---Looking At the Total Cases v Total Deaths in Nigeria
+--LET'S LOOK AT THE TOTAL CASES IN NIGERIA VS TOTAL DEATHS
+
 SELECT location, date, total_cases total_deaths, (total_deaths/total_cases)*100 as DeathPercentage
 FROM PortfolioProject..CovidDeaths
 where Location = 'Nigeria'
@@ -20,7 +22,7 @@ order by 1,2
 
 
 
----- --looking at total population v total cases 
+---- NOW LOOKING AT TOTAL CASES VS TOTAL POPULATION IN NIGERIA 
 
 SELECT location,date, total_cases,population, (total_cases/population)*100 as PopulationPercentage
 FROM PortfolioProject..CovidDeaths
@@ -30,8 +32,8 @@ order by 1,2
 
 
 
+---- LOOKING AT LOCATION WITH THE HIGHEST INFECTION PERCENTAGE
 
----- --looking at location with highest infection percentage
 SELECT location, population, MAX(total_cases)as HighestInfectionCount, MAX(total_cases/population)*100 as PerfecentInfectedPopulation
 FROM PortfolioProject..CovidDeaths
 Group By Location, population
@@ -41,6 +43,7 @@ order by PerfecentInfectedPopulation Desc
 
 
 ----THE TOTAL DEATHS PER LOCATION
+
 SELECT location,MAX(total_deaths)as TotalDeathCount
 FROM PortfolioProject..CovidDeaths
 where continent is Null
@@ -60,7 +63,7 @@ order by TotalDeathCount Desc;
 
 
 ---- --BREAKING THINGS DOWN BY CONTINENT
----- --showing continents with highest death count per population
+---- Showing continents with highest death count per population
 
 SELECT continent, MAX(total_deaths)as TotalDeathCount
 FROM PortfolioProject..CovidDeaths
@@ -97,6 +100,8 @@ FULL OUTER JOIN PortfolioProject..CovidVaccinations  vac
 Where Dea.continent is not null
 Order by 2, 3
 
+
+
 ----USING CTE TO PERFORM CALCULATIONS ON A PARTITION BY
 
 with PopvsVac as
@@ -122,8 +127,7 @@ where location = 'Nigeria' and continent is not null
 Group by location
 order by 2 desc
 
-----Looking at the data, it appears inaccurate
-
+----Looking at the data, the figures seem inflated. Check back, 185m+ cant be accurate.
 
 
 
